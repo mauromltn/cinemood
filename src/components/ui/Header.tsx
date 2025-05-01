@@ -23,34 +23,42 @@ export default function Header() {
    };
 
    return (
-      <header className="w-full h-fit text-sm px-5 py-8 z-10 text-white">
+      <header className="w-full h-fit text-sm py-8 px-2 z-10 text-white">
          <nav className="relative w-full px-4 flex items-center justify-between">
             <a className="font-semibold text-xl md:w-[288px]" href="#" aria-label="Brand">CineMood</a>
 
-            <button className="md:hidden" onClick={toggleMenu} aria-label="Toggle menu">
-               <Menu
-                  size={32}
-                  className="bg-white text-black rounded-full p-2 active:scale-90 duration-200 ease"
-               />
-            </button>
+            <div className="flex items-center gap-6 md:hidden">
+               <div className='rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200'>
+                 <Search
+                   size={40}
+                   className="bg-neutral-900 rounded-full p-3 active:scale-90 duration-200 ease"
+                 />
+               </div>
 
-            <motion.div
-               className={`${isMenuOpen ? "block" : "hidden"} absolute top-12 right-5 flex flex-col items-end gap-3`}
+               <button className="md:hidden" onClick={toggleMenu} aria-label="Toggle menu">
+                 <Menu
+                   size={40}
+                   className="bg-neutral-900 rounded-full p-3 active:scale-90 duration-200 ease"
+                 />
+               </button>
 
-               animate={isMenuOpen ? "open" : "closed"}
-               variants={variants}
-            >
-               {navLinks.map((link, i) => (
-                  <a
+               <motion.div
+                 className={`${isMenuOpen ? "block" : "hidden"} absolute top-12 right-5 flex flex-col items-end gap-3`}
+                 animate={isMenuOpen ? "open" : "closed"}
+                 variants={variants}
+               >
+                 {navLinks.map((link, i) => (
+                   <a
                      key={i}
                      href={link.path}
                      onClick={toggleMenu}
-                     className="font-medium active:text-white"
-                  >
+                     className="font-medium text-neutral-500 active:text-white"
+                   >
                      {link.name}
-                  </a>
-               ))}
-            </motion.div>
+                   </a>
+                 ))}
+               </motion.div>
+            </div>
 
             {/* Menu for large screens */}
             <div className="hidden md:flex md:flex-row md:gap-8 py-4 px-6 bg-neutral-900 rounded-full">
