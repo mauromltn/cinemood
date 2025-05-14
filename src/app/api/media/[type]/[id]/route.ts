@@ -1,7 +1,17 @@
 import { getMovieDetails, getTVShowDetails } from "@/lib/tmdb"
-import { type NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(request: NextRequest, { params }: { params: { type: string; id: string } }) {
+interface RouteParams {
+  params: {
+    type: string;
+    id: string;
+  }
+}
+
+export async function GET(
+  request: NextRequest,
+  { params }: RouteParams
+) {
   try {
     const { type, id } = params
 
