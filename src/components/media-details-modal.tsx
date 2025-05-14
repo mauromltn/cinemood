@@ -95,7 +95,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
     >
       <div
         ref={modalRef}
-        className="relative bg-gray-900 sm:rounded-lg overflow-hidden w-full h-full sm:max-w-4xl sm:w-full sm:max-h-[90vh] flex flex-col"
+        className="relative bg-neutral-900 sm:rounded-lg overflow-hidden w-full h-full sm:max-w-4xl sm:w-full sm:max-h-[90vh] flex flex-col"
       >
         <button
           onClick={onClose}
@@ -115,7 +115,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent" />
           <div className="absolute bottom-0 left-0 p-4 sm:p-6">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{title}</h2>
             <p className="text-sm sm:text-base text-gray-300 mt-1 sm:mt-2">{releaseDate}</p>
@@ -138,7 +138,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
 
           {/* Valutazione */}
           <div className="flex items-center mb-3 sm:mb-4">
-            <div className="bg-gray-800 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm">
+            <div className="bg-neutral-800 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm">
               <span className="font-bold">{details.vote_average.toFixed(1)}</span>/10
             </div>
             <span className="ml-2 text-xs sm:text-sm text-gray-400">

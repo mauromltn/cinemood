@@ -43,7 +43,7 @@ export function MediaCard({ item, type }: MediaCardProps) {
   return (
     <>
       <div className="flex-shrink-0 w-[160px] cursor-pointer" onClick={handleClick}>
-        <div className="rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
+        <div className="rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border">
           <div className="relative h-[240px] w-full">
             <Image src={posterUrl || "/placeholder.svg"} alt={title} fill className="object-cover" sizes="160px" />
             {isLoading && (
