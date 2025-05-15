@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 * {
+  scroll-behavior: smooth;
   scrollbar-width: none;
   border-color: hsl(0, 0%, 14.9%)
 }

@@ -20,12 +20,12 @@ export default async function Hero() {
 
       
       <div className="max-w-7xl mx-auto space-y-18 px-4 py-6 sm:p-6">
-        <section>
+        <section id='trending-movies'>
           <h2 className="text-2xl font-bold mb-4">Film di Tendenza</h2>
           <HorizontalScroll items={trendingMovies} type="movie" />
         </section>
 
-        <section>
+        <section id='trending-tv'>
           <h2 className="text-2xl font-bold mb-4">Serie TV di Tendenza</h2>
           <HorizontalScroll items={trendingTVShows} type="tv" />
         </section>
