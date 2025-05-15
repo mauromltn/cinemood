@@ -10,7 +10,7 @@ export default async function Hero() {
 
   return (
     <>
-      <main className='flex flex-col items-center mt-20 mb-30'>
+      <main className='flex flex-col items-center mt-20 mb-30 px-2 sm:px-0'>
         <h1 className='md:w-180 text-2xl md:text-4xl font-bold text-center mb-9'>
           FAI IL NOSTRO QUIZ PER SCOPRIRE IL TUO <span className='text-neutral-500'>MOOD</span> E TROVARE LA MIGLIOR ESPERIENZA DI <span className='text-neutral-500'>VISIONE</span>
         </h1>

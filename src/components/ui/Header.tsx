@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { Menu, Search } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { navLinks } from '@/data/navLinks';
+import { SearchBar } from './search-bar';
 
 const variants = {
    open: {
@@ -28,12 +29,7 @@ export default function Header() {
             <a className="font-semibold text-xl md:w-[288px]" href="#" aria-label="Brand">CineMood</a>
 
             <div className="flex items-center gap-6 md:hidden">
-               <div className='rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200'>
-                 <Search
-                   size={40}
-                   className="bg-neutral-900 rounded-full p-3 active:scale-90 duration-200 ease"
-                 />
-               </div>
+               <SearchBar />
 
                <button className="md:hidden" onClick={toggleMenu} aria-label="Toggle menu">
                  <Menu
@@ -74,9 +70,7 @@ export default function Header() {
             </div>
 
             <div className="hidden md:flex md:items-center md:gap-4">
-               <div className='p-4 rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200'>
-                 <Search />
-               </div>
+               <SearchBar />
 
                <div className='w-25 py-4 text-center rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200'>
                  <a href="#" className='font-bold'>Login</a>

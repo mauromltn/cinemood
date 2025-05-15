@@ -90,3 +90,25 @@ export async function getTVShowDetails(id: number): Promise<TVShowDetails> {
 export async function getWatchProviders(type: "movie" | "tv", id: number): Promise<WatchProviders> {
   return fetchFromTMDB(`/${type}/${id}/watch/providers`)
 }
+
+// Nuova funzione per la ricerca
+export async function searchMedia(query: string): Promise<{ movies: Movie[]; tvShows: TVShow[] }> {
+  if (!query.trim()) {
+    return { movies: [], tvShows: [] }
+  }
+
+  const movieResponse = await fetch(
+    `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=it-IT&query=${encodeURIComponent(query)}&page=1`,
+  )
+  const tvResponse = await fetch(
+    `${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=it-IT&query=${encodeURIComponent(query)}&page=1`,
+  )
+
+  const movieData = await movieResponse.json()
+  const tvData = await tvResponse.json()
+
+  return {
+    movies: movieData.results || [],
+    tvShows: tvData.results || [],
+  }
+}
