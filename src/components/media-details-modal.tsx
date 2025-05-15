@@ -74,6 +74,8 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
                   src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
                   alt={provider.provider_name}
                   fill
+                  placeholder="blur"
+                  blurDataURL="/placeholder.svg"
                   className="object-cover"
                   sizes="(max-width: 640px) 40px, 48px"
                 />
