@@ -23,13 +23,6 @@ export interface Genre {
   name: string
 }
 
-export interface Provider {
-  logo_path: string
-  provider_id: number
-  provider_name: string
-  display_priority: number
-}
-
 export interface WatchProviders {
   results: {
     IT?: {
@@ -38,6 +31,13 @@ export interface WatchProviders {
       buy?: Provider[]
     }
   }
+}
+
+export interface Provider {
+  logo_path: string
+  provider_id: number
+  provider_name: string
+  display_priority: number
 }
 
 export interface MovieDetails extends Omit<Movie, "genre_ids"> {
@@ -61,3 +61,6 @@ export interface TVShowDetails extends Omit<TVShow, "genre_ids"> {
   episode_run_time: number[]
   watch_providers?: WatchProviders
 }
+
+// Tipo combinato per i risultati di ricerca
+export type MediaItem = (Movie | TVShow) & { media_type: "movie" | "tv" }

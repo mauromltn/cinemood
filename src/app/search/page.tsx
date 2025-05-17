@@ -4,38 +4,62 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { Search, ArrowLeft } from "lucide-react"
+import { Search, ArrowLeft, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react"
 import { MediaCard } from "@/components/Carrousel/media-card"
-import type { Movie, TVShow } from "@/lib/types"
+import type { MediaItem } from "@/lib/types"
+
+type SearchResults = {
+  results: MediaItem[]
+  total_pages: number
+  total_results: number
+  page: number
+}
 
 export default function SearchPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const initialQuery = searchParams.get("q") || ""
+  const initialPage = Number.parseInt(searchParams.get("page") || "1", 10)
 
   const [searchQuery, setSearchQuery] = useState(initialQuery)
+  const [currentPage, setCurrentPage] = useState(initialPage)
   const [isSearching, setIsSearching] = useState(false)
-  const [searchResults, setSearchResults] = useState<{ movies: Movie[]; tvShows: TVShow[] } | null>(null)
+  const [searchResults, setSearchResults] = useState<SearchResults | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   // Esegui la ricerca quando la pagina viene caricata con un parametro di query
   useEffect(() => {
     if (initialQuery) {
-      performSearch(initialQuery)
+      performSearch(initialQuery, initialPage)
     }
-  }, [initialQuery])
+  }, [initialQuery, initialPage])
 
-  const performSearch = async (query: string) => {
+  const performSearch = async (query: string, page: number) => {
     if (!query.trim()) return
 
     setIsSearching(true)
+    setError(null)
+
     try {
-      const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`)
-      if (!response.ok) throw new Error("Errore durante la ricerca")
+      const response = await fetch(`/api/search?query=${encodeURIComponent(query)}&page=${page}`)
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `Errore ${response.status}`)
+      }
 
       const results = await response.json()
+
+      // Verifica che i risultati abbiano la struttura attesa
+      if (!results.results) {
+        throw new Error("Formato di risposta non valido")
+      }
+
       setSearchResults(results)
+      setCurrentPage(page)
     } catch (error) {
       console.error("Errore durante la ricerca:", error)
+      setError(error instanceof Error ? error.message : "Si è verificato un errore durante la ricerca")
     } finally {
       setIsSearching(false)
     }
@@ -45,9 +69,25 @@ export default function SearchPage() {
     e.preventDefault()
     if (!searchQuery.trim()) return
 
+    // Reimposta la pagina a 1 quando si effettua una nuova ricerca
+    setCurrentPage(1)
     // Aggiorna l'URL con il parametro di ricerca
-    router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
-    performSearch(searchQuery)
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}&page=1`)
+    performSearch(searchQuery, 1)
+  }
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1) return
+
+    const maxPage = searchResults?.total_pages || 0
+
+    if (newPage > maxPage) return
+
+    router.push(`/search?q=${encodeURIComponent(initialQuery)}&page=${newPage}`)
+    performSearch(initialQuery, newPage)
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   return (
@@ -87,39 +127,68 @@ export default function SearchPage() {
           </div>
         )}
 
-        {searchResults && !isSearching && (
+        {error && (
+          <div className="bg-red-900/30 border border-red-700 rounded-lg p-4 mb-8 flex items-center gap-3">
+            <AlertCircle className="text-red-500 flex-shrink-0" />
+            <p className="text-red-200">{error}</p>
+          </div>
+        )}
+
+        {searchResults && !isSearching && !error && (
           <div className="space-y-10">
-            {searchResults.movies.length === 0 && searchResults.tvShows.length === 0 ? (
+            {searchResults.results.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-xl text-neutral-400">Nessun risultato trovato per &ldquo;{searchParams.get("q")}&rdquo;</p>
+                <p className="text-xl text-neutral-400">Nessun risultato trovato per "{searchParams.get("q")}"</p>
                 <p className="text-neutral-500 mt-2">Prova con un altro termine di ricerca</p>
               </div>
             ) : (
               <>
-                {searchResults.movies.length > 0 && (
-                  <section>
-                    <h2 className="text-xl font-bold mb-4">Film ({searchResults.movies.length})</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                      {searchResults.movies.map((movie) => (
-                        <div key={movie.id} className="w-full">
-                          <MediaCard item={movie} type="movie" />
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
+                <section>
+                  <h2 className="text-xl font-bold mb-4">
+                    Risultati
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {searchResults.results.map((item) => (
+                      <div key={`${item.media_type}-${item.id}`} className="w-full">
+                        <MediaCard item={item} />
+                      </div>
+                    ))}
+                  </div>
+                </section>
 
-                {searchResults.tvShows.length > 0 && (
-                  <section>
-                    <h2 className="text-xl font-bold mb-4">Serie TV ({searchResults.tvShows.length})</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                      {searchResults.tvShows.map((tvShow) => (
-                        <div key={tvShow.id} className="w-full">
-                          <MediaCard item={tvShow} type="tv" />
-                        </div>
-                      ))}
+                {/* Paginazione */}
+                {searchResults.total_pages > 1 && (
+                  <div className="flex justify-center items-center gap-4 py-8">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={`p-2 rounded-full ${currentPage === 1
+                          ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
+                          : "bg-neutral-800 text-white hover:bg-neutral-700"
+                        }`}
+                      aria-label="Pagina precedente"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+
+                    <div className="text-center">
+                      <span className="text-lg font-medium">
+                        Pagina {currentPage} di {searchResults.total_pages}
+                      </span>
                     </div>
-                  </section>
+
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage >= searchResults.total_pages}
+                      className={`p-2 rounded-full ${currentPage >= searchResults.total_pages
+                          ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
+                          : "bg-neutral-800 text-white hover:bg-neutral-700"
+                        }`}
+                      aria-label="Pagina successiva"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </div>
                 )}
               </>
             )}

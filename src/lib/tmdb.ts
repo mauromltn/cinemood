@@ -91,24 +91,53 @@ export async function getWatchProviders(type: "movie" | "tv", id: number): Promi
   return fetchFromTMDB(`/${type}/${id}/watch/providers`)
 }
 
-// Nuova funzione per la ricerca
-export async function searchMedia(query: string): Promise<{ movies: Movie[]; tvShows: TVShow[] }> {
+// Tipo combinato per i risultati di ricerca
+export type MediaItem = (Movie | TVShow) & { media_type: "movie" | "tv" }
+
+// Funzione di ricerca aggiornata per combinare e ordinare i risultati
+export async function searchMedia(query: string, page = 1) {
   if (!query.trim()) {
-    return { movies: [], tvShows: [] }
+    return {
+      results: [],
+      total_pages: 0,
+      total_results: 0,
+      page: 1,
+    }
   }
 
-  const movieResponse = await fetch(
-    `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=it-IT&query=${encodeURIComponent(query)}&page=1`,
-  )
-  const tvResponse = await fetch(
-    `${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=it-IT&query=${encodeURIComponent(query)}&page=1`,
-  )
+  try {
+    // Utilizziamo la ricerca multi per ottenere sia film che serie TV
+    const multiUrl = `${BASE_URL}/search/multi?api_key=${TMDB_API_KEY}&language=it-IT&query=${encodeURIComponent(
+      query,
+    )}&page=${page}`
 
-  const movieData = await movieResponse.json()
-  const tvData = await tvResponse.json()
+    const response = await fetch(multiUrl)
 
-  return {
-    movies: movieData.results || [],
-    tvShows: tvData.results || [],
+    if (!response.ok) {
+      throw new Error(`Errore nella ricerca: ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    // Filtriamo i risultati per includere solo film e serie TV
+    const filteredResults = data.results.filter((item: any) => item.media_type === "movie" || item.media_type === "tv")
+
+    // Ordiniamo i risultati per voto medio (dal più alto al più basso)
+    const sortedResults = filteredResults.sort((a: any, b: any) => {
+      // Gestisci i casi in cui vote_average potrebbe essere null o undefined
+      const voteA = a.vote_average || 0
+      const voteB = b.vote_average || 0
+      return voteB - voteA
+    })
+
+    return {
+      results: sortedResults as MediaItem[],
+      total_pages: data.total_pages || 0,
+      total_results: data.total_results || 0,
+      page: data.page || 1,
+    }
+  } catch (error) {
+    console.error("Errore durante la ricerca:", error)
+    throw error
   }
 }
