@@ -94,6 +94,18 @@ export async function getWatchProviders(type: "movie" | "tv", id: number): Promi
 // Tipo combinato per i risultati di ricerca
 export type MediaItem = (Movie | TVShow) & { media_type: "movie" | "tv" }
 
+interface TMDBSearchResult {
+  media_type: string
+  vote_average?: number
+}
+
+interface TMDBSearchResponse {
+  results: TMDBSearchResult[]
+  total_pages: number
+  total_results: number
+  page: number
+}
+
 // Funzione di ricerca aggiornata per combinare e ordinare i risultati
 export async function searchMedia(query: string, page = 1) {
   if (!query.trim()) {
@@ -117,13 +129,13 @@ export async function searchMedia(query: string, page = 1) {
       throw new Error(`Errore nella ricerca: ${response.status}`)
     }
 
-    const data = await response.json()
+    const data = await response.json() as TMDBSearchResponse
 
     // Filtriamo i risultati per includere solo film e serie TV
-    const filteredResults = data.results.filter((item: any) => item.media_type === "movie" || item.media_type === "tv")
+    const filteredResults = data.results.filter((item: TMDBSearchResult) => item.media_type === "movie" || item.media_type === "tv")
 
     // Ordiniamo i risultati per voto medio (dal più alto al più basso)
-    const sortedResults = filteredResults.sort((a: any, b: any) => {
+    const sortedResults = filteredResults.sort((a: TMDBSearchResult, b: TMDBSearchResult) => {
       // Gestisci i casi in cui vote_average potrebbe essere null o undefined
       const voteA = a.vote_average || 0
       const voteB = b.vote_average || 0
