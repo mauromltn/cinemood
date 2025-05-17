@@ -138,7 +138,7 @@ export default function SearchPage() {
           <div className="space-y-10">
             {searchResults.results.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-xl text-neutral-400">Nessun risultato trovato per "{searchParams.get("q")}"</p>
+                <p className="text-xl text-neutral-400">Nessun risultato trovato per &quot;{searchParams.get("q")}&quot;</p>
                 <p className="text-neutral-500 mt-2">Prova con un altro termine di ricerca</p>
               </div>
             ) : (
