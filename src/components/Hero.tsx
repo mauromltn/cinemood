@@ -1,5 +1,5 @@
 import React from 'react'
-import { HorizontalScroll } from '../../components/Carrousel/horizontal-scroll'
+import { HorizontalScroll } from './Carrousel/horizontal-scroll'
 import { getTrendingMovies, getTrendingTVShows } from '@/lib/tmdb'
 import { QuizButton } from '@/components/Quiz/quiz-button'
 

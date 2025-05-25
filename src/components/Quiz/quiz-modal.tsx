@@ -28,7 +28,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
 
   const questions = [
     {
-      question: "Com'è stata la tua giornata?",
+      question: "Com'è andata la tua giornata?",
       options: ["Male", "Così così", "Bene", "Fantastica"],
       key: "mood" as const,
     },
