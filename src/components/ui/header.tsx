@@ -1,29 +1,9 @@
 'use client';
-import { useState } from 'react';
-import { Menu } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { navLinks } from '@/data/navLinks';
 import { SearchBar } from './search-bar';
 import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-const variants = {
-   open: {
-      opacity: 1,
-      transform: "translateX(0)",
-   },
-   closed: {
-      opacity: 0,
-      transform: "translateX(10%)",
-   },
-};
-
 export default function Header() {
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-   const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
-   };
-
    return (
       <header className="w-full h-fit text-sm py-8 px-2 z-10 text-white">
          <nav className="relative w-full px-4 flex items-center justify-between">
