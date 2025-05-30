@@ -7,7 +7,7 @@ export default function Footer() {
           <div className="mb-6 md:mb-0">
             <h2 className="text-xl font-bold">Cinemood</h2>
             <p className="text-neutral-600 mt-2">
-              Una collezione di film e serie TV per il tuo intrattenimento.
+              Dal tuo mood al tuo intrattenimento.
             </p>
             <div className="flex space-x-4 mt-4">
               <a href="#" aria-label="Instagram" className="text-neutral-600 hover:text-white">

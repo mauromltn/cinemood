@@ -40,3 +40,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.cl-avatarBox {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@media (max-width: 48rem) {
+  .cl-avatarBox {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
