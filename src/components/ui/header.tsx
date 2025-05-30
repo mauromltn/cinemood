@@ -1,6 +1,7 @@
 'use client';
 import { navLinks } from '@/data/navLinks';
 import { SearchBar } from './search-bar';
+import { LogIn } from 'lucide-react';
 import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
@@ -32,12 +33,18 @@ export default function Header() {
 
                <SignedOut>
                   <SignInButton mode="modal">
-                     <button className="w-25 py-4 font-bold text-center rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200">
+                     <button className='sm:hidden rounded-full bg-white cursor-pointer'>
+                        <LogIn color="#000000" size={40} className="p-3" />
+                     </button>
+                  </SignInButton>
+
+                  <SignInButton mode="modal">
+                     <button className="hidden sm:block w-25 py-4 font-bold text-center rounded-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 duration-200">
                         Accedi
                      </button>
                   </SignInButton>
                   <SignUpButton mode="modal">
-                     <button className="w-25 py-4 text-black font-bold text-center rounded-full bg-white cursor-pointer hover:bg-white/80 duration-200">
+                     <button className="hidden sm:block w-25 py-4 text-black font-bold text-center rounded-full bg-white cursor-pointer hover:bg-white/80 duration-200">
                         Registrati
                      </button>
                   </SignUpButton>
