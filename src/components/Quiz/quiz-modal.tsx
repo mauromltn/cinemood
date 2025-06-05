@@ -87,7 +87,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
       <div className="relative bg-neutral-900 rounded-lg overflow-hidden max-w-md w-full">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-1.5 bg-neutral-800 rounded-full hover:bg-neutral-700 transition-colors"
+          className="absolute top-3 right-3 p-1.5 bg-neutral-800 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer"
           aria-label="Chiudi"
         >
           <X className="w-5 h-5 text-white" />
@@ -102,7 +102,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
                 <button
                   key={option}
                   onClick={() => handleOptionSelect(option)}
-                  className={`w-full p-3 rounded-lg text-left transition-colors ${
+                  className={`w-full p-3 rounded-lg text-left transition-colors cursor-pointer ${
                     answers[currentQuestion.key] === option
                       ? "bg-orange-700 text-white"
                       : "bg-neutral-800 text-white hover:bg-neutral-700"
@@ -125,7 +125,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
             <button
               onClick={handlePrevious}
               disabled={step === 0}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-4 py-2 rounded-lg cursor-pointer ${
                 step === 0 ? "bg-neutral-700 text-neutral-500 cursor-not-allowed" : "bg-neutral-800 text-white hover:bg-neutral-700"
               }`}
             >
@@ -134,7 +134,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
             <button
               onClick={handleNext}
               disabled={!canProceed}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-4 py-2 rounded-lg cursor-pointer ${
                 canProceed
                   ? "bg-orange-700 text-white hover:bg-orange-600"
                   : "bg-neutral-700 text-neutral-500 cursor-not-allowed"

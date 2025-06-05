@@ -49,7 +49,7 @@ export function MediaCard({ item, type: propType }: MediaCardProps) {
 
   return (
     <>
-      <div className="flex-shrink-0 w-[120px] sm:w-[140px] md:w-[160px] cursor-pointer" onClick={handleClick}>
+      <div className="flex-shrink-0 w-32 sm:w-37 md:w-44 cursor-pointer" onClick={handleClick}>
         <div className="rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
           <div className="relative h-[180px] sm:h-[210px] md:h-[240px] w-full">
             <Image

@@ -22,14 +22,16 @@ export default function SearchPage() {
   const initialPage = Number.parseInt(searchParams.get("page") || "1", 10)
 
   const [searchQuery, setSearchQuery] = useState(initialQuery)
+  const [currentQuery, setCurrentQuery] = useState(initialQuery)
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [isSearching, setIsSearching] = useState(false)
   const [searchResults, setSearchResults] = useState<SearchResults | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Esegui la ricerca quando la pagina viene caricata con un parametro di query
+  // Esegui la ricerca quando la pagina viene caricata
   useEffect(() => {
     if (initialQuery) {
+      setCurrentQuery(initialQuery)
       performSearch(initialQuery, initialPage)
     }
   }, [initialQuery, initialPage])
@@ -57,6 +59,7 @@ export default function SearchPage() {
 
       setSearchResults(results)
       setCurrentPage(page)
+      setCurrentQuery(query)
     } catch (error) {
       console.error("Errore durante la ricerca:", error)
       setError(error instanceof Error ? error.message : "Si è verificato un errore durante la ricerca")
@@ -71,6 +74,7 @@ export default function SearchPage() {
 
     // Reimposta la pagina a 1 quando si effettua una nuova ricerca
     setCurrentPage(1)
+    setCurrentQuery(searchQuery)
     // Aggiorna l'URL con il parametro di ricerca
     router.push(`/search?q=${encodeURIComponent(searchQuery)}&page=1`)
     performSearch(searchQuery, 1)
@@ -83,8 +87,9 @@ export default function SearchPage() {
 
     if (newPage > maxPage) return
 
-    router.push(`/search?q=${encodeURIComponent(initialQuery)}&page=${newPage}`)
-    performSearch(initialQuery, newPage)
+    setCurrentPage(newPage)
+    router.push(`/search?q=${encodeURIComponent(currentQuery)}&page=${newPage}`)
+    performSearch(currentQuery, newPage)
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -94,7 +99,10 @@ export default function SearchPage() {
     <main className="min-h-screen px-4 py-6 sm:p-6 bg-black text-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <button onClick={() => router.back()} className="flex items-center gap-2 text-neutral-400 hover:text-white mb-4">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center gap-2 text-neutral-400 hover:text-white mb-4 cursor-pointer"
+          >
             <ArrowLeft size={18} />
             <span>Torna indietro</span>
           </button>
@@ -138,7 +146,7 @@ export default function SearchPage() {
           <div className="space-y-10">
             {searchResults.results.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-xl text-neutral-400">Nessun risultato trovato per &quot;{searchParams.get("q")}&quot;</p>
+                <p className="text-xl text-neutral-400">Nessun risultato trovato per "{currentQuery}"</p>
                 <p className="text-neutral-500 mt-2">Prova con un altro termine di ricerca</p>
               </div>
             ) : (
@@ -147,9 +155,9 @@ export default function SearchPage() {
                   <h2 className="text-xl font-bold mb-4">
                     Risultati
                   </h2>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {searchResults.results.map((item) => (
-                      <div key={`${item.media_type}-${item.id}`} className="w-full">
+                      <div key={`${item.media_type}-${item.id}`} className="justify-self-center mb-10">
                         <MediaCard item={item} />
                       </div>
                     ))}
@@ -162,10 +170,11 @@ export default function SearchPage() {
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className={`p-2 rounded-full ${currentPage === 1
+                      className={`p-2 rounded-full ${
+                        currentPage === 1
                           ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
                           : "bg-neutral-800 text-white hover:bg-neutral-700"
-                        }`}
+                      }`}
                       aria-label="Pagina precedente"
                     >
                       <ChevronLeft size={24} />
@@ -180,10 +189,11 @@ export default function SearchPage() {
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage >= searchResults.total_pages}
-                      className={`p-2 rounded-full ${currentPage >= searchResults.total_pages
+                      className={`p-2 rounded-full ${
+                        currentPage >= searchResults.total_pages
                           ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
                           : "bg-neutral-800 text-white hover:bg-neutral-700"
-                        }`}
+                      }`}
                       aria-label="Pagina successiva"
                     >
                       <ChevronRight size={24} />
