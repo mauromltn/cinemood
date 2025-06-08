@@ -9,10 +9,10 @@ export default function Header() {
       <header className="w-full h-fit text-sm py-8 px-2 z-10 text-white">
          <nav className="relative w-full px-4 flex items-center justify-between">
             <SignedOut>
-               <a className="font-semibold text-xl md:w-[288px]" href="#" aria-label="Brand">CineMood</a>
+               <a className="font-semibold text-xl md:w-[288px]" href="#" aria-label="Brand">Cinemood</a>
             </SignedOut>
             <SignedIn>
-               <a className="font-semibold text-xl" href="#" aria-label="Brand">CineMood</a>
+               <a className="font-semibold text-xl" href="#" aria-label="Brand">Cinemood</a>
             </SignedIn>
 
             {/* Menu for large screens */}

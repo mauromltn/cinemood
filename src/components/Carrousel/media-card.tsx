@@ -50,13 +50,13 @@ export function MediaCard({ item, type: propType }: MediaCardProps) {
   return (
     <>
       <div className="flex-shrink-0 w-32 sm:w-37 md:w-44 cursor-pointer" onClick={handleClick}>
-        <div className="rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
+        <div className="group rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
           <div className="relative h-[180px] sm:h-[210px] md:h-[240px] w-full">
             <Image
               src={posterUrl || "/placeholder.svg"}
               alt={title}
               fill
-              className="object-cover"
+              objectFit="cover"
               sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
             />
             {isLoading && (
@@ -66,13 +66,13 @@ export function MediaCard({ item, type: propType }: MediaCardProps) {
             )}
 
             {/* Indicatore del tipo di media */}
-            <div className="absolute top-2 right-2 bg-black/70 p-1 rounded-full">
+            <div className="absolute top-2 right-2 bg-black/70 p-1 rounded-full backdrop-blur-lg">
               {type === "movie" ? <Film size={14} className="text-white" /> : <Tv size={14} className="text-white" />}
             </div>
 
             {/* Badge del voto */}
             {item.vote_average > 0 && (
-              <div className="absolute top-2 left-2 bg-black/70 px-1.5 py-0.5 rounded-full text-[10px] font-bold">
+              <div className="absolute top-2 left-2 bg-black/70 px-1.5 py-0.5 rounded-full text-[10px] font-bold backdrop-blur-lg">
                 {item.vote_average.toFixed(1)}
               </div>
             )}

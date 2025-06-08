@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Cinemood",
-  description: "Dal tuo mood al tuo intrattenimento.",
+  description: "Scopri film e serie TV perfetti per il tuo stato d'animo. Lascia che le tue emozioni guidino la tua prossima visione.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode;}>) {
