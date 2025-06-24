@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { X } from 'lucide-react'
-import type { MovieDetails, TVShowDetails, Provider } from "@/lib/types"
+import { X, Play } from "lucide-react"
+import type { MovieDetails, TVShowDetails, Provider, Video } from "@/lib/types"
 
 interface MediaDetailsModalProps {
   details: MovieDetails | TVShowDetails | null
@@ -15,6 +15,7 @@ interface MediaDetailsModalProps {
 
 export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
+  const [showTrailer, setShowTrailer] = useState(false)
 
   useEffect(() => {
     // Blocca lo scroll del body quando il modale è aperto
@@ -24,7 +25,13 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
 
     // Gestisce la chiusura con il tasto ESC
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose()
+      if (e.key === "Escape") {
+        if (showTrailer) {
+          setShowTrailer(false)
+        } else {
+          onClose()
+        }
+      }
     }
 
     window.addEventListener("keydown", handleEscape)
@@ -32,12 +39,16 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
       document.body.style.overflow = ""
       window.removeEventListener("keydown", handleEscape)
     }
-  }, [details, onClose])
+  }, [details, onClose, showTrailer])
 
   // Chiude il modale se si clicca fuori dal contenuto
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      onClose()
+      if (showTrailer) {
+        setShowTrailer(false)
+      } else {
+        onClose()
+      }
     }
   }
 
@@ -52,6 +63,16 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
   const backdropUrl = backdropPath
     ? `https://image.tmdb.org/t/p/original${backdropPath}`
     : "/placeholder.svg?height=1080&width=1920"
+
+  // Trova il trailer ufficiale
+  const trailer =
+    details.videos?.results?.find(
+      (video: Video) =>
+        video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser") && video.official,
+    ) ||
+    details.videos?.results?.find(
+      (video: Video) => video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser"),
+    )
 
   // Estrai le piattaforme di streaming
   const watchProviders = details.watch_providers?.results?.IT
@@ -74,8 +95,6 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
                   src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
                   alt={provider.provider_name}
                   fill
-                  placeholder="blur"
-                  blurDataURL="/placeholder.svg"
                   className="object-cover"
                   sizes="(max-width: 640px) 40px, 48px"
                 />
@@ -107,17 +126,52 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
           <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
         </button>
 
-        {/* Immagine di sfondo */}
+        {/* Trailer Modal */}
+        {showTrailer && trailer && (
+          <div className="absolute inset-0 z-20 bg-black flex items-center justify-center">
+            <button
+              onClick={() => setShowTrailer(false)}
+              className="absolute top-3 right-3 z-30 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+              aria-label="Chiudi trailer"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+            <div className="w-full h-full max-w-4xl max-h-[80vh] aspect-video">
+              <iframe
+                src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&rel=0`}
+                title={trailer.name}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Immagine di sfondo (ora usa il poster) */}
         <div className="relative h-[200px] sm:h-[250px] md:h-[300px] w-full">
           <Image
             src={backdropUrl || "/placeholder.svg"}
             alt={title}
             fill
-            className="object-cover"
+            className="object-cover object-center"
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent" />
+
+          {/* Pulsante Play per il trailer */}
+          {trailer && (
+            <button
+              onClick={() => setShowTrailer(true)}
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              aria-label="Guarda il trailer"
+            >
+              <Play fill="#fff" strokeWidth={4} className="w-9 h-9 sm:w-15 sm:h-15 ml-1" />
+            </button>
+          )}
+
           <div className="absolute bottom-0 left-0 p-4 sm:p-6">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{title}</h2>
             <p className="text-sm sm:text-base text-neutral-300 mt-1 sm:mt-2">{releaseDate}</p>
@@ -171,11 +225,15 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold mb-1">Stagioni</h3>
-                  <p className="text-sm sm:text-base text-neutral-300">{(details as TVShowDetails).number_of_seasons}</p>
+                  <p className="text-sm sm:text-base text-neutral-300">
+                    {(details as TVShowDetails).number_of_seasons}
+                  </p>
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold mb-1">Episodi</h3>
-                  <p className="text-sm sm:text-base text-neutral-300">{(details as TVShowDetails).number_of_episodes}</p>
+                  <p className="text-sm sm:text-base text-neutral-300">
+                    {(details as TVShowDetails).number_of_episodes}
+                  </p>
                 </div>
               </div>
             )}

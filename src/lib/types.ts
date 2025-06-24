@@ -40,6 +40,20 @@ export interface Provider {
   display_priority: number
 }
 
+export interface Video {
+  id: string
+  key: string
+  name: string
+  site: string
+  type: string
+  official: boolean
+  published_at: string
+}
+
+export interface Videos {
+  results: Video[]
+}
+
 export interface MovieDetails extends Omit<Movie, "genre_ids"> {
   genres: Genre[]
   runtime: number | null
@@ -48,6 +62,7 @@ export interface MovieDetails extends Omit<Movie, "genre_ids"> {
   vote_count: number
   status: string
   watch_providers?: WatchProviders
+  videos?: Videos
 }
 
 export interface TVShowDetails extends Omit<TVShow, "genre_ids"> {
@@ -60,6 +75,7 @@ export interface TVShowDetails extends Omit<TVShow, "genre_ids"> {
   tagline: string | null
   episode_run_time: number[]
   watch_providers?: WatchProviders
+  videos?: Videos
 }
 
 // Tipo combinato per i risultati di ricerca
