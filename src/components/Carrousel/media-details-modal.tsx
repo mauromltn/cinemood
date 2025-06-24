@@ -4,8 +4,8 @@ import type React from "react"
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { X, Play } from "lucide-react"
-import type { MovieDetails, TVShowDetails, Provider, Video } from "@/lib/types"
+import { X, Play, User } from "lucide-react"
+import type { MovieDetails, TVShowDetails, Provider, Video, CastMember } from "@/lib/types"
 
 interface MediaDetailsModalProps {
   details: MovieDetails | TVShowDetails | null
@@ -74,6 +74,9 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
       (video: Video) => video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser"),
     )
 
+  // Ottieni i primi 15 attori principali per lo scroll orizzontale
+  const mainCast = details.credits?.cast?.slice(0, 15) || []
+
   // Estrai le piattaforme di streaming
   const watchProviders = details.watch_providers?.results?.IT
   const streamingProviders = watchProviders?.flatrate || []
@@ -102,6 +105,40 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
               <span className="text-[10px] sm:text-xs mt-1 text-center max-w-[60px] truncate">
                 {provider.provider_name}
               </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // Funzione per renderizzare il cast
+  const renderCast = (cast: CastMember[]) => {
+    if (cast.length === 0) return null
+
+    return (
+      <div className="mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Cast Principale</h3>
+        <div className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-5 pb-4">
+          {cast.map((actor) => (
+            <div key={actor.id} className="flex-shrink-0 text-center w-20 sm:w-24">
+              <div className="relative w-18 h-22 sm:w-24 sm:h-28 mx-auto mb-2 rounded-lg overflow-hidden bg-neutral-800">
+                {actor.profile_path ? (
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+                    alt={actor.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 64px, 80px"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <User className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-500" />
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-sm font-medium text-white truncate px-1">{actor.name}</p>
+              <p className="text-[10px] sm:text-xs text-neutral-400 truncate px-1">{actor.character}</p>
             </div>
           ))}
         </div>
@@ -207,6 +244,9 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
             <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">Trama</h3>
             <p className="text-sm sm:text-base text-neutral-300">{details.overview || "Nessuna trama disponibile."}</p>
           </div>
+
+          {/* Cast Principale */}
+          {renderCast(mainCast)}
 
           {/* Informazioni aggiuntive */}
           <div className="grid grid-cols-1 gap-3 sm:gap-4">

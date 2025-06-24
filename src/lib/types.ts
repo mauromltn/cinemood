@@ -54,6 +54,18 @@ export interface Videos {
   results: Video[]
 }
 
+export interface CastMember {
+  id: number
+  name: string
+  character: string
+  profile_path: string | null
+  order: number
+}
+
+export interface Credits {
+  cast: CastMember[]
+}
+
 export interface MovieDetails extends Omit<Movie, "genre_ids"> {
   genres: Genre[]
   runtime: number | null
@@ -63,6 +75,7 @@ export interface MovieDetails extends Omit<Movie, "genre_ids"> {
   status: string
   watch_providers?: WatchProviders
   videos?: Videos
+  credits?: Credits
 }
 
 export interface TVShowDetails extends Omit<TVShow, "genre_ids"> {
@@ -76,6 +89,7 @@ export interface TVShowDetails extends Omit<TVShow, "genre_ids"> {
   episode_run_time: number[]
   watch_providers?: WatchProviders
   videos?: Videos
+  credits?: Credits
 }
 
 // Tipo combinato per i risultati di ricerca

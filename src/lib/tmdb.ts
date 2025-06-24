@@ -1,4 +1,4 @@
-import type { Movie, TVShow, MovieDetails, TVShowDetails, WatchProviders, Videos } from "./types"
+import type { Movie, TVShow, MovieDetails, TVShowDetails, WatchProviders, Videos, Credits } from "./types"
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY
 const BASE_URL = "https://api.themoviedb.org/3"
@@ -79,14 +79,16 @@ export async function getMovieDetails(id: number): Promise<MovieDetails> {
   const details = await fetchFromTMDB(`/movie/${id}`)
   const watchProviders = await getWatchProviders("movie", id)
   const videos = await getVideos("movie", id)
-  return { ...details, watch_providers: watchProviders, videos }
+  const credits = await getCredits("movie", id)
+  return { ...details, watch_providers: watchProviders, videos, credits }
 }
 
 export async function getTVShowDetails(id: number): Promise<TVShowDetails> {
   const details = await fetchFromTMDB(`/tv/${id}`)
   const watchProviders = await getWatchProviders("tv", id)
-  const videos = await getVideos("movie", id)
-  return { ...details, watch_providers: watchProviders, videos }
+  const videos = await getVideos("tv", id)
+  const credits = await getCredits("tv", id)
+  return { ...details, watch_providers: watchProviders, videos, credits }
 }
 
 export async function getWatchProviders(type: "movie" | "tv", id: number): Promise<WatchProviders> {
@@ -95,6 +97,10 @@ export async function getWatchProviders(type: "movie" | "tv", id: number): Promi
 
 export async function getVideos(type: "movie" | "tv", id: number): Promise<Videos> {
   return fetchFromTMDB(`/${type}/${id}/videos`)
+}
+
+export async function getCredits(type: "movie" | "tv", id: number): Promise<Credits> {
+  return fetchFromTMDB(`/${type}/${id}/credits`)
 }
 
 // Tipo combinato per i risultati di ricerca
