@@ -137,7 +137,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
                   </div>
                 )}
               </div>
-              <p className="text-xs text-sm font-medium text-white truncate px-1">{actor.name}</p>
+              <p className="text-xs sm:text-sm font-medium text-white truncate px-1">{actor.name}</p>
               <p className="text-[10px] sm:text-xs text-neutral-400 truncate px-1">{actor.character}</p>
             </div>
           ))}

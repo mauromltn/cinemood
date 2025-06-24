@@ -18,6 +18,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Cinemood",
   description: "Scopri film e serie TV perfetti per il tuo stato d'animo. Lascia che le tue emozioni guidino la tua prossima visione.",
+  openGraph: {
+    title: "Cinemood",
+    description: "Scopri film e serie TV perfetti per il tuo stato d'animo. Lascia che le tue emozioni guidino la tua prossima visione.",
+    url: "https://cinemood.it",
+    images: [
+      {
+        url: "https://cinemood.it/og-image.png",
+        width: 1470,
+        height: 920,
+        alt: "Cinemood",
+      },
+    ],
+    locale: "it_IT",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode;}>) {
