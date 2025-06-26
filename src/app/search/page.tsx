@@ -99,13 +99,19 @@ export default function SearchPage() {
     <main className="min-h-screen px-4 py-6 sm:p-6 bg-black text-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <button
-            onClick={() => router.back()}
+            <button
+            onClick={() => {
+              if (currentPage === 1) {
+              router.push('/');
+              } else {
+              router.back();
+              }
+            }}
             className="flex items-center gap-2 text-neutral-400 hover:text-white mb-4 cursor-pointer"
-          >
+            >
             <ArrowLeft size={18} />
             <span>Torna indietro</span>
-          </button>
+            </button>
 
           <h1 className="text-2xl font-bold mb-6">Cerca film e serie TV</h1>
 
@@ -155,9 +161,9 @@ export default function SearchPage() {
                   <h2 className="text-xl font-bold mb-4">
                     Risultati
                   </h2>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {searchResults.results.map((item) => (
-                      <div key={`${item.media_type}-${item.id}`} className="justify-self-center mb-10">
+                      <div key={`${item.media_type}-${item.id}`} className="justify-self-center">
                         <MediaCard item={item} />
                       </div>
                     ))}
