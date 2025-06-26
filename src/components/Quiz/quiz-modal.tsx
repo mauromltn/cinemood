@@ -206,12 +206,15 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
               {isAnalyzing ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Analisi AI...
+                  Groq AI sta analizzando...
                 </>
               ) : step < questions.length - 1 ? (
                 "Avanti"
               ) : (
-                "Analizza"
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  Analizza con AI
+                </>
               )}
             </button>
           </div>

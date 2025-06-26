@@ -222,7 +222,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
             {details.genres.map((genre) => (
               <span
                 key={genre.id}
-                className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-orange-700 text-white text-xs sm:text-sm rounded-full"
+                className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-neutral-700 text-white text-xs sm:text-sm rounded-full"
               >
                 {genre.name}
               </span>

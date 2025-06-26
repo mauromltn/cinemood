@@ -166,7 +166,7 @@ export default function RecommendationsPage() {
                 <section>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {results.results.map((item) => (
-                      <div key={`${item.media_type}-${item.id}`} className="w-full">
+                      <div key={`${item.media_type}-${item.id}`} className="justify-self-center">
                         <MediaCard item={item} />
                       </div>
                     ))}
