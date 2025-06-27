@@ -63,28 +63,28 @@ export default function ChiSiamoPage() {
             <h2 className="text-3xl font-bold">I nostri valori</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-xl font-bold mb-3 text-orange-400">Personalizzazione</h3>
               <p className="text-neutral-300">
                 Crediamo che ogni persona sia unica, così come le sue emozioni e preferenze. Le nostre raccomandazioni
                 sono sempre personalizzate e mai generiche.
               </p>
             </div>
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-xl font-bold mb-3 text-orange-400">Semplicità</h3>
               <p className="text-neutral-300">
                 La tecnologia dovrebbe semplificare la vita, non complicarla. Cinemood è intuitivo e facile da usare per
                 chiunque.
               </p>
             </div>
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-xl font-bold mb-3 text-orange-400">Privacy</h3>
               <p className="text-neutral-300">
                 Rispettiamo la tua privacy. I tuoi dati emotivi sono trattati con la massima cura e non vengono mai
                 condivisi con terze parti.
               </p>
             </div>
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-xl font-bold mb-3 text-orange-400">Qualità</h3>
               <p className="text-neutral-300">
                 Curiamo attentamente ogni raccomandazione, assicurandoci che ogni suggerimento sia rilevante e di alta
@@ -108,7 +108,7 @@ export default function ChiSiamoPage() {
         </div>
 
         {/* CTA */}
-        <div className="text-center bg-neutral-900 rounded-lg p-8">
+        <div className="text-center bg-neutral-900 rounded-2xl p-8">
           <h3 className="text-2xl font-bold mb-4">Unisciti alla nostra community</h3>
           <p className="text-neutral-400 mb-6">Scopri come Cinemood può trasformare le tue serate</p>
           <Link

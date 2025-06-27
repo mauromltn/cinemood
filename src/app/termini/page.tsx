@@ -39,7 +39,7 @@ export default function TerminiPage() {
               Cinemood è un servizio gratuito che fornisce raccomandazioni personalizzate di film e serie TV basate
               sull&apos;analisi del tuo stato emotivo attraverso un quiz interattivo.
             </p>
-            <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-4">
+            <div className="bg-blue-900/20 border border-blue-700 rounded-2xl p-4">
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
                 <div>
@@ -59,7 +59,7 @@ export default function TerminiPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">Uso Accettabile</h2>
             <div className="space-y-4">
-              <div className="bg-green-900/20 border border-green-700 rounded-lg p-4">
+              <div className="bg-green-900/20 border border-green-700 rounded-2xl p-4">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                   <div>
@@ -74,7 +74,7 @@ export default function TerminiPage() {
                 </div>
               </div>
 
-              <div className="bg-red-900/20 border border-red-700 rounded-lg p-4">
+              <div className="bg-red-900/20 border border-red-700 rounded-2xl p-4">
                 <div className="flex items-start gap-2">
                   <XCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                   <div>
@@ -107,7 +107,7 @@ export default function TerminiPage() {
           {/* Limitazioni */}
           <section>
             <h2 className="text-2xl font-bold mb-4">Limitazioni del Servizio</h2>
-            <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+            <div className="bg-yellow-900/20 border border-yellow-700 rounded-2xl p-4">
               <div className="flex items-start gap-2">
                 <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
                 <div>
@@ -158,7 +158,7 @@ export default function TerminiPage() {
           </section>
 
           {/* Contatti */}
-          <section className="bg-neutral-900 p-6 rounded-lg">
+          <section className="bg-neutral-900 p-6 rounded-2xl">
             <h2 className="text-2xl font-bold mb-4">Contatti</h2>
             <p className="text-neutral-300 mb-4">Per domande sui Termini di Servizio, contattaci:</p>
             <div className="space-y-2">

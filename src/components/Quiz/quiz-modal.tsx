@@ -120,10 +120,10 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-      <div className="relative bg-neutral-900 rounded-lg overflow-hidden max-w-md w-full">
+      <div className="relative bg-neutral-900 rounded-2xl overflow-hidden max-w-md w-full">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-1.5 bg-neutral-800 rounded-full hover:bg-neutral-700 transition-colors"
+          className="absolute top-3 right-3 p-1.5 bg-neutral-800 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer"
           aria-label="Chiudi"
         >
           <X className="w-5 h-5 text-white" />
@@ -137,7 +137,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
               <button
                 key={option}
                 onClick={() => handleOptionSelect(option)}
-                className={`w-full p-3 rounded-lg text-left transition-colors ${
+                className={`w-full p-3 rounded-2xl text-left transition-colors cursor-pointer ${
                   answers[currentQuestion.key] === option
                     ? "bg-orange-700 text-white"
                     : "bg-neutral-800 text-white hover:bg-neutral-700"
@@ -150,7 +150,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
 
           {/* Mostra info sull'AI nell'ultimo step */}
           {step === questions.length - 1 && (
-            <div className="mt-4 p-3 bg-blue-900/20 border border-blue-700 rounded-lg">
+            <div className="mt-4 p-3 bg-blue-900/20 border border-blue-700 rounded-2xl">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-medium text-blue-300">Analisi AI Personalizzata</span>
@@ -162,19 +162,19 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
           )}
 
           {analysisError && (
-            <div className="mt-3 p-2 bg-red-900/30 border border-red-700 rounded-lg flex items-start gap-2">
+            <div className="mt-3 p-2 bg-red-900/30 border border-red-700 rounded-2xl flex items-start gap-2">
               <AlertTriangle className="text-red-500 flex-shrink-0 w-5 h-5 mt-0.5" />
               <div>
                 <p className="text-sm text-red-300">{analysisError}</p>
                 <div className="mt-2 flex gap-2">
                   <button
-                    className="text-xs text-orange-400 hover:text-orange-300 underline"
+                    className="text-xs text-orange-400 hover:text-orange-300 underline cursor-pointer"
                     onClick={() => analyzeQuizWithGroq(answers)}
                     disabled={isAnalyzing}
                   >
                     Riprova
                   </button>
-                  <button className="text-xs text-orange-400 hover:text-orange-300 underline" onClick={skipAnalysis}>
+                  <button className="text-xs text-orange-400 hover:text-orange-300 underline cursor-pointer" onClick={skipAnalysis}>
                     Salta analisi
                   </button>
                 </div>
@@ -186,10 +186,10 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
             <button
               onClick={handlePrevious}
               disabled={step === 0}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-4 py-2 rounded-2xl ${
                 step === 0
                   ? "bg-neutral-700 text-neutral-500 cursor-not-allowed"
-                  : "bg-neutral-800 text-white hover:bg-neutral-700"
+                  : "bg-neutral-800 text-white hover:bg-neutral-700 cursor-pointer"
               }`}
             >
               Indietro
@@ -197,16 +197,16 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
             <button
               onClick={handleNext}
               disabled={!canProceed || isAnalyzing}
-              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-2xl flex items-center gap-2 ${
                 canProceed && !isAnalyzing
-                  ? "bg-orange-700 text-white hover:bg-orange-600"
+                  ? "bg-orange-700 text-white hover:bg-orange-600 cursor-pointer"
                   : "bg-neutral-700 text-neutral-500 cursor-not-allowed"
               }`}
             >
               {isAnalyzing ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Groq AI sta analizzando...
+                  Analizzando...
                 </>
               ) : step < questions.length - 1 ? (
                 "Avanti"

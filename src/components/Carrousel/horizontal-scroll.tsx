@@ -59,7 +59,7 @@ export function HorizontalScroll({ items, type }: HorizontalScrollProps) {
     <div className="relative">
       <div
         ref={scrollContainerRef}
-        className="flex overflow-x-auto scrollbar-hide gap-3 sm:gap-4 pb-8 pt-2"
+        className="flex overflow-x-auto scrollbar-hide gap-3 sm:gap-5 pb-8 pt-2"
         onScroll={handleScroll}
       >
         {items.map((item) => (

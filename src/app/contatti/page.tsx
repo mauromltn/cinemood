@@ -22,7 +22,7 @@ export default function ContattiPage() {
 
         {/* Contact Options */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-neutral-900 p-6 rounded-lg">
+          <div className="bg-neutral-900 p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <HelpCircle className="w-6 h-6 text-orange-700" />
               <h2 className="text-xl font-bold">Supporto Generale</h2>
@@ -39,7 +39,7 @@ export default function ContattiPage() {
             </a>
           </div>
 
-          <div className="bg-neutral-900 p-6 rounded-lg">
+          <div className="bg-neutral-900 p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <Bug className="w-6 h-6 text-orange-700" />
               <h2 className="text-xl font-bold">Segnala un Problema</h2>
@@ -54,7 +54,7 @@ export default function ContattiPage() {
             </a>
           </div>
 
-          <div className="bg-neutral-900 p-6 rounded-lg">
+          <div className="bg-neutral-900 p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <MessageCircle className="w-6 h-6 text-orange-700" />
               <h2 className="text-xl font-bold">Feedback e Suggerimenti</h2>
@@ -71,7 +71,7 @@ export default function ContattiPage() {
             </a>
           </div>
 
-          <div className="bg-neutral-900 p-6 rounded-lg">
+          <div className="bg-neutral-900 p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <Mail className="w-6 h-6 text-orange-700" />
               <h2 className="text-xl font-bold">Contatto Generale</h2>
@@ -91,7 +91,7 @@ export default function ContattiPage() {
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-6">Domande Frequenti</h2>
           <div className="space-y-6">
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-lg font-bold mb-2 text-orange-400">Come funziona l&apos;analisi delle emozioni?</h3>
               <p className="text-neutral-300">
                 Utilizziamo algoritmi di intelligenza artificiale per analizzare le tue risposte al quiz e identificare
@@ -100,7 +100,7 @@ export default function ContattiPage() {
               </p>
             </div>
 
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-lg font-bold mb-2 text-orange-400">I miei dati sono sicuri?</h3>
               <p className="text-neutral-300">
                 Assolutamente sì. Rispettiamo la tua privacy e non condividiamo mai i tuoi dati con terze parti. Tutte
@@ -108,7 +108,7 @@ export default function ContattiPage() {
               </p>
             </div>
 
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-lg font-bold mb-2 text-orange-400">Posso rifare il quiz?</h3>
               <p className="text-neutral-300">
                 Certamente! Puoi rifare il quiz ogni volta che vuoi per ottenere nuove raccomandazioni basate sul tuo
@@ -116,7 +116,7 @@ export default function ContattiPage() {
               </p>
             </div>
 
-            <div className="bg-neutral-900 p-6 rounded-lg">
+            <div className="bg-neutral-900 p-6 rounded-2xl">
               <h3 className="text-lg font-bold mb-2 text-orange-400">Da dove provengono i dati sui film?</h3>
               <p className="text-neutral-300">
                 Utilizziamo l&apos;API di The Movie Database (TMDB), una delle fonti più complete e aggiornate per
@@ -127,7 +127,7 @@ export default function ContattiPage() {
         </div>
 
         {/* Response Time */}
-        <div className="bg-orange-900/20 border border-orange-700 rounded-lg p-6 text-center">
+        <div className="bg-orange-900/20 border border-orange-700 rounded-2xl p-6 text-center">
           <h3 className="text-xl font-bold mb-2">Tempi di Risposta</h3>
           <p className="text-neutral-300">
             Ci impegniamo a rispondere a tutte le email entro 24-48 ore. Per problemi urgenti, utilizza l&apos;indirizzo

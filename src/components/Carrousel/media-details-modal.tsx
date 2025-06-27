@@ -93,7 +93,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
         <div className="flex flex-wrap gap-2">
           {providers.map((provider) => (
             <div key={provider.provider_id} className="flex flex-col items-center">
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden">
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-2xl overflow-hidden">
                 <Image
                   src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
                   alt={provider.provider_name}
@@ -119,10 +119,10 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
     return (
       <div className="mb-4 sm:mb-6">
         <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Cast Principale</h3>
-        <div className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-5 pb-4">
+        <div className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-6 pb-4">
           {cast.map((actor) => (
-            <div key={actor.id} className="flex-shrink-0 text-center w-20 sm:w-24">
-              <div className="relative w-18 h-22 sm:w-24 sm:h-28 mx-auto mb-2 rounded-lg overflow-hidden bg-neutral-800">
+            <div key={actor.id} className="flex-shrink-0 text-center w-20 sm:w-23">
+              <div className="relative w-18 h-22 sm:w-24 sm:h-28 mx-auto mb-2 rounded-xl overflow-hidden bg-neutral-800">
                 {actor.profile_path ? (
                   <Image
                     src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
@@ -153,7 +153,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
     >
       <div
         ref={modalRef}
-        className="relative bg-neutral-900 sm:rounded-lg overflow-hidden w-full h-full sm:max-w-4xl sm:w-full sm:max-h-[90vh] flex flex-col"
+        className="relative bg-neutral-900 sm:rounded-2xl overflow-hidden w-full h-full sm:max-w-4xl sm:w-full sm:max-h-[90vh] flex flex-col"
       >
         <button
           onClick={onClose}

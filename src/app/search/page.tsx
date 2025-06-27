@@ -142,7 +142,7 @@ export default function SearchPage() {
         )}
 
         {error && (
-          <div className="bg-red-900/30 border border-red-700 rounded-lg p-4 mb-8 flex items-center gap-3">
+          <div className="bg-red-900/30 border border-red-700 rounded-2xl p-4 mb-8 flex items-center gap-3">
             <AlertCircle className="text-red-500 flex-shrink-0" />
             <p className="text-red-200">{error}</p>
           </div>

@@ -49,15 +49,15 @@ export function MediaCard({ item, type: propType }: MediaCardProps) {
 
   return (
     <>
-      <div className="flex-shrink-0 w-32 sm:w-37 md:w-44 cursor-pointer" onClick={handleClick}>
-        <div className="group rounded-lg overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
-          <div className="relative h-[180px] sm:h-[210px] md:h-[240px] w-full">
+      <div className="flex-shrink-0 w-32 sm:w-37 md:w-50 cursor-pointer" onClick={handleClick}>
+        <div className="group rounded-2xl overflow-hidden bg-card hover:scale-105 transition-transform duration-200 border border-gray-800">
+          <div className="relative h-[180px] sm:h-[210px] md:h-[270px] w-full">
             <Image
               src={posterUrl || "/placeholder.svg"}
               alt={title}
               fill
               objectFit="cover"
-              sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
+              className="rounded-b-2xl"
             />
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/50">
@@ -77,9 +77,9 @@ export function MediaCard({ item, type: propType }: MediaCardProps) {
               </div>
             )}
           </div>
-          <div className="p-2">
+          <div className="p-2 pt-2.5 pb-4">
             <h3 className="font-medium text-xs sm:text-sm truncate">{title}</h3>
-            <div className="mt-1 flex flex-wrap gap-1">
+            <div className="mt-2 flex flex-wrap gap-2">
               {genreNames.map((genre, index) => (
                 <span
                   key={index}

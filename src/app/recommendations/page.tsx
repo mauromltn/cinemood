@@ -133,7 +133,7 @@ export default function RecommendationsPage() {
           </div>
 
           {groqReasoning && (
-            <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-4 mb-6">
+            <div className="bg-blue-900/20 border border-blue-700 rounded-2xl p-4 mb-6">
               <p className="text-blue-200">
                 <strong>Analisi AI:</strong> {groqReasoning}
               </p>
@@ -148,7 +148,7 @@ export default function RecommendationsPage() {
         )}
 
         {error && (
-          <div className="bg-red-900/30 border border-red-700 rounded-lg p-4 mb-8 flex items-center gap-3">
+          <div className="bg-red-900/30 border border-red-700 rounded-2xl p-4 mb-8 flex items-center gap-3">
             <AlertCircle className="text-red-500 flex-shrink-0" />
             <p className="text-red-200">{error}</p>
           </div>

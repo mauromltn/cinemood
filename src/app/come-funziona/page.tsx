@@ -81,7 +81,7 @@ export default function ComeFunzionaPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center bg-neutral-900 rounded-lg p-8">
+        <div className="mt-16 text-center bg-neutral-900 rounded-2xl p-8">
           <h3 className="text-2xl font-bold mb-4">Pronto a iniziare?</h3>
           <p className="text-neutral-400 mb-6">Scopri subito cosa guardare in base al tuo umore</p>
           <Link

@@ -45,7 +45,7 @@ export default function PrivacyPage() {
               Dati che raccogliamo
             </h2>
             <div className="space-y-4">
-              <div className="bg-neutral-900 p-4 rounded-lg">
+              <div className="bg-neutral-900 p-4 rounded-2xl">
                 <h3 className="text-lg font-semibold mb-2 text-orange-400">Dati del Quiz</h3>
                 <p className="text-neutral-300">
                   Raccogliamo le tue risposte al quiz emotivo, inclusi il tuo umore, le tue preferenze e il testo libero
@@ -53,14 +53,14 @@ export default function PrivacyPage() {
                   personalizzate.
                 </p>
               </div>
-              <div className="bg-neutral-900 p-4 rounded-lg">
+              <div className="bg-neutral-900 p-4 rounded-2xl">
                 <h3 className="text-lg font-semibold mb-2 text-orange-400">Dati di Utilizzo</h3>
                 <p className="text-neutral-300">
                   Raccogliamo informazioni su come utilizzi il servizio, come le pagine visitate e i film/serie TV
                   visualizzati. Questi dati ci aiutano a migliorare l&apos;esperienza utente.
                 </p>
               </div>
-              <div className="bg-neutral-900 p-4 rounded-lg">
+              <div className="bg-neutral-900 p-4 rounded-2xl">
                 <h3 className="text-lg font-semibold mb-2 text-orange-400">Dati Tecnici</h3>
                 <p className="text-neutral-300">
                   Raccogliamo informazioni tecniche di base come il tipo di browser e il dispositivo utilizzato per
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
           {/* Condivisione dati */}
           <section>
             <h2 className="text-2xl font-bold mb-4">Condivisione dei dati</h2>
-            <div className="bg-green-900/20 border border-green-700 rounded-lg p-4">
+            <div className="bg-green-900/20 border border-green-700 rounded-2xl p-4">
               <p className="text-green-300 font-semibold mb-2">La nostra promessa:</p>
               <p className="text-neutral-300">
                 Non vendiamo, affittiamo o condividiamo mai i tuoi dati personali con terze parti per scopi commerciali.
@@ -183,7 +183,7 @@ export default function PrivacyPage() {
           </section>
 
           {/* Contatti */}
-          <section className="bg-neutral-900 p-6 rounded-lg">
+          <section className="bg-neutral-900 p-6 rounded-2xl">
             <h2 className="text-2xl font-bold mb-4">Contattaci</h2>
             <p className="text-neutral-300 mb-4">
               Se hai domande su questa Privacy Policy o sui tuoi dati personali, contattaci:
