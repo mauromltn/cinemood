@@ -168,7 +168,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
           <div className="absolute inset-0 z-20 bg-black flex items-center justify-center">
             <button
               onClick={() => setShowTrailer(false)}
-              className="absolute top-3 right-3 z-30 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+              className="absolute top-3 right-3 z-30 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors cursor-pointer"
               aria-label="Chiudi trailer"
             >
               <X className="w-5 h-5 text-white" />
@@ -202,7 +202,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
           {trailer && (
             <button
               onClick={() => setShowTrailer(true)}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10"
               aria-label="Guarda il trailer"
             >
               <Play fill="#fff" strokeWidth={4} className="w-9 h-9 sm:w-15 sm:h-15 ml-1" />

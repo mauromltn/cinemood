@@ -72,7 +72,7 @@ export function HorizontalScroll({ items, type }: HorizontalScrollProps) {
         {showLeftArrow && (
           <button
             onClick={() => scroll("left")}
-            className="p-1.5 sm:p-2 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors border text-white"
+            className="p-1.5 sm:p-2 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors border text-white cursor-pointer"
             aria-label="Scorri a sinistra"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -81,7 +81,7 @@ export function HorizontalScroll({ items, type }: HorizontalScrollProps) {
         {showRightArrow && (
           <button
             onClick={() => scroll("right")}
-            className="p-1.5 sm:p-2 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors border text-white"
+            className="p-1.5 sm:p-2 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors border text-white cursor-pointer"
             aria-label="Scorri a destra"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />

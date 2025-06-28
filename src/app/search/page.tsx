@@ -126,7 +126,7 @@ export default function SearchPage() {
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-orange-700 hover:bg-orange-600 text-white rounded-r-full transition-colors flex items-center gap-2"
+              className="px-6 py-3 bg-orange-700 hover:bg-orange-600 text-white rounded-r-full transition-colors flex items-center gap-2 cursor-pointer"
               disabled={isSearching}
             >
               <Search size={18} />
@@ -176,7 +176,7 @@ export default function SearchPage() {
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className={`p-2 rounded-full ${
+                      className={`p-2 rounded-full cursor-pointer ${
                         currentPage === 1
                           ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
                           : "bg-neutral-800 text-white hover:bg-neutral-700"
@@ -195,7 +195,7 @@ export default function SearchPage() {
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage >= searchResults.total_pages}
-                      className={`p-2 rounded-full ${
+                      className={`p-2 rounded-full cursor-pointer ${
                         currentPage >= searchResults.total_pages
                           ? "bg-neutral-800 text-neutral-500 cursor-not-allowed"
                           : "bg-neutral-800 text-white hover:bg-neutral-700"
