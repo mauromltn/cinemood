@@ -48,7 +48,7 @@ export function QuizButton() {
     <>
       <button
         onClick={() => setShowQuiz(true)}
-        className="bg-orange-600 py-2 px-3 md:py-4 md:px-6 text-sm font-bold rounded-full hover:bg-orange-700 hover:text-white/80 duration-200 cursor-pointer"
+        className="bg-orange-600 py-3 px-4 md:py-4 md:px-6 text-sm font-bold rounded-full hover:bg-orange-700 hover:text-white/80 duration-200 cursor-pointer"
       >
         {quizCompleted ? "RIFAI IL QUIZ" : "FAI IL QUIZ"}
       </button>

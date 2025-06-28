@@ -134,7 +134,7 @@ export default function RecommendationsPage() {
 
           {groqReasoning && (
             <div className="bg-blue-900/20 border border-blue-700 rounded-2xl p-4 mb-6">
-              <p className="text-blue-200">
+              <p className="text-sm text-blue-200">
                 <strong>Analisi AI:</strong> {groqReasoning}
               </p>
             </div>
