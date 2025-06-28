@@ -27,7 +27,7 @@ export async function POST(request: Request) {
             model: groq("llama-3.3-70b-versatile"),
             system: `Sei un esperto psicologo e consulente cinematografico. Analizza attentamente le risposte del quiz considerando gli stati emotivi sottostanti e le necessità psicologiche dell'utente.
 
-   GENERI DISPONIBILI (usa solo questi ID):
+   GENERI DISPONIBILI PER FILM (usa solo questi ID):
    - 28: Azione
    - 12: Avventura  
    - 16: Animazione
@@ -48,21 +48,47 @@ export async function POST(request: Request) {
    - 10752: Guerra
    - 37: Western
 
+   GENERI DISPONIBILI PER SERIE TV (usa solo questi ID):
+   - 10759: Azione e Avventura
+   - 16: Animazione
+   - 35: Commedia
+   - 80: Crime
+   - 99: Documentario
+   - 18: Drammatico
+   - 10751: Famiglia
+   - 10762: Kids
+   - 9648: Mistero
+   - 10763: News
+   - 10764: Reality
+   - 10765: Sci-Fi & Fantasy
+   - 10766: Soap
+   - 10767: Talk
+   - 10768: Guerra e Politica
+   - 37: Western
+
+   NOTA: Alcuni generi hanno lo stesso ID per film e serie TV (16, 35, 80, 99, 18, 10751, 9648, 37).
+   Puoi utilizzare questi generi comuni quando appropriato per entrambi i tipi di contenuto.
+
    Rispondi SOLO con un JSON nel seguente formato:
    {
      "genres": [lista di 3-6 ID numerici dei generi più appropriati],
-     "reasoning": "breve spiegazione della scelta (max 100 caratteri)"
+     "reasoning": "breve spiegazione della scelta (max 100 caratteri)",
+     "mediaTypes": ["movie", "tv"] // indica se i generi sono più adatti per film, serie TV o entrambi
    }
 
    ANALISI PSICOLOGICA AVANZATA:
-- "Male" potrebbe voler elaborare emozioni
-- "Così così" suggerisce un mix di emozioni
-- "Bene" indica un buon umore, cerca qualcosa di coinvolgente
-- "Fantastica" suggerisce energia alta
-- "Piangere" corrisponde a un bisogno di introspezione
-- "Ridere" corrisponde a un bisogno di leggerezza
-- "Emozionarti" richiama intensità e sentimenti forti
-- "Distrarti" suggerisce evasione e dinamismo`,
+   - "Male" potrebbe voler elaborare emozioni
+   - "Così così" suggerisce un mix di emozioni
+   - "Bene" indica un buon umore, cerca qualcosa di coinvolgente
+   - "Fantastica" suggerisce energia alta
+   - "Piangere" corrisponde a un bisogno di introspezione
+   - "Ridere" corrisponde a un bisogno di leggerezza
+   - "Emozionarti" richiama intensità e sentimenti forti
+   - "Distrarti" suggerisce evasione e dinamismo
+
+   CONSIDERAZIONI PER TIPO DI CONTENUTO:
+   - Serie TV sono ideali per immersione prolungata e sviluppo dei personaggi
+   - Film sono perfetti per esperienze concentrate e complete`,
             prompt: `Analizza queste risposte del quiz:
 - Umore: "${mood}"
 - Voglia di: "${activity}"  
@@ -88,6 +114,7 @@ Restituisci i generi più appropriati in formato JSON.`,
             parsedResult = {
                genres: [35, 18, 28, 12], // Commedia, Drammatico, Azione, Avventura
                reasoning: "Analisi fallback - mix bilanciato di generi popolari",
+               mediaTypes: ["movie", "tv"]
             }
          }
 
@@ -103,29 +130,24 @@ Restituisci i generi più appropriati in formato JSON.`,
             throw new Error("Nessun genere valido nella risposta")
          }
 
+         // Gestisce mediaTypes, default a entrambi se non specificato
+         const mediaTypes = parsedResult.mediaTypes && Array.isArray(parsedResult.mediaTypes)
+            ? parsedResult.mediaTypes
+            : ["movie", "tv"]
+
          console.log("Generi analizzati da Groq:", validGenres)
+         console.log("Tipi di media suggeriti:", mediaTypes)
 
          return NextResponse.json({
             genres: validGenres,
             reasoning: parsedResult.reasoning || "Raccomandazioni personalizzate basate sulle tue risposte",
+            mediaTypes,
             mood,
             activity,
             preference,
          })
       } catch (error) {
          console.error("Errore durante la chiamata a Groq:", error)
-
-         // Fallback con logica semplificata
-         const fallbackGenres = getFallbackGenres(mood, activity)
-
-         return NextResponse.json({
-            genres: fallbackGenres,
-            reasoning: "Raccomandazioni basate su logica predefinita",
-            mood,
-            activity,
-            preference,
-            note: "Servizio AI temporaneamente non disponibile",
-         })
       }
    } catch (error) {
       console.error("Errore durante l'analisi del quiz:", error)
@@ -134,31 +156,4 @@ Restituisci i generi più appropriati in formato JSON.`,
          { status: 500 },
       )
    }
-}
-
-// Funzione di fallback per quando Groq non è disponibile
-function getFallbackGenres(mood: string, activity: string): number[] {
-   const moodGenres: Record<string, number[]> = {
-      Male: [18, 35], // Drammatico, Commedia
-      "Così così": [35, 12], // Commedia, Avventura
-      Bene: [28, 12], // Azione, Avventura
-      Fantastica: [28, 878], // Azione, Fantascienza
-   }
-
-   const activityGenres: Record<string, number[]> = {
-      Ridere: [35, 16], // Commedia, Animazione
-      Riflettere: [18, 99], // Drammatico, Documentario
-      Emozionarti: [10749, 18], // Romantico, Drammatico
-      Distrarti: [28, 878], // Azione, Fantascienza
-   }
-
-   const genres = [...(moodGenres[mood] || []), ...(activityGenres[activity] || [])]
-
-   // Rimuovi duplicati e aggiungi generi popolari se necessario
-   const uniqueGenres = [...new Set(genres)]
-   if (uniqueGenres.length < 3) {
-      uniqueGenres.push(12, 14) // Avventura, Fantasy
-   }
-
-   return uniqueGenres.slice(0, 6)
 }
