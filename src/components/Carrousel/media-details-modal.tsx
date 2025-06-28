@@ -117,8 +117,8 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
     if (cast.length === 0) return null
 
     return (
-      <div className="mb-4 sm:mb-6">
-        <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Cast Principale</h3>
+      <div className="mb-6">
+        <h3 className="text-base sm:text-lg font-semibold mb-3">Cast Principale</h3>
         <div className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-6 pb-4">
           {cast.map((actor) => (
             <div key={actor.id} className="flex-shrink-0 text-center w-20 sm:w-23">
@@ -218,7 +218,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
         {/* Contenuto scrollabile */}
         <div className="p-4 sm:p-6 overflow-y-auto">
           {/* Generi */}
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
             {details.genres.map((genre) => (
               <span
                 key={genre.id}
@@ -230,7 +230,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
           </div>
 
           {/* Valutazione */}
-          <div className="flex items-center mb-3 sm:mb-4">
+          <div className="flex items-center mb-4">
             <div className="bg-neutral-800 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm">
               <span className="font-bold">{details.vote_average.toFixed(1)}</span>/10
             </div>
@@ -249,7 +249,7 @@ export function MediaDetailsModal({ details, type, onClose }: MediaDetailsModalP
           {renderCast(mainCast)}
 
           {/* Informazioni aggiuntive */}
-          <div className="grid grid-cols-1 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {type === "movie" && (
               <div>
                 <h3 className="text-base sm:text-lg font-semibold mb-1">Durata</h3>

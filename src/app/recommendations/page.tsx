@@ -129,7 +129,7 @@ export default function RecommendationsPage() {
 
           <div className="flex items-center gap-3 mb-6">
             <Sparkles className="w-6 h-6 text-orange-700" />
-            <h1 className="text-2xl font-bold">Contenuti selezionati per te</h1>
+            <h1 className="text-xl sm:text-2xl font-bold">Contenuti selezionati per te</h1>
           </div>
 
           {groqReasoning && (

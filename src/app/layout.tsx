@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://cinemood.it/og-image.png",
-        width: 1470,
-        height: 920,
+        width: 2940,
+        height: 1840,
         alt: "Cinemood",
       },
     ],
