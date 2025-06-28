@@ -7,6 +7,7 @@ type QuizAnswer = {
   mood: string
   activity: string
   preference: string
+  streaming: string
 }
 
 interface QuizModalProps {
@@ -20,11 +21,17 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
     mood: "",
     activity: "",
     preference: "",
+    streaming: "",
   })
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisError, setAnalysisError] = useState<string | null>(null)
 
   const questions = [
+    {
+      question: "Su quale piattaforma vuoi guardare?",
+      options: ["Qualsiasi", "Netflix", "Prime Video", "Disney+"],
+      key: "streaming" as const,
+    },
     {
       question: "Com'è andata la tua giornata?",
       options: ["Male", "Così così", "Bene", "Fantastica"],
@@ -92,7 +99,10 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
       const analysisResult = await analyzeQuizWithGroq(answers)
 
       if (analysisResult) {
-        onComplete(analysisResult)
+        onComplete({
+          ...analysisResult,
+          streaming: answers.streaming
+        })
       }
       // Se c'è un errore, l'utente può riprovare o chiudere il modal
     }
@@ -112,6 +122,7 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
       mood: answers.mood,
       activity: answers.activity,
       preference: answers.preference,
+      streaming: answers.streaming,
       note: "Analisi saltata",
     })
   }

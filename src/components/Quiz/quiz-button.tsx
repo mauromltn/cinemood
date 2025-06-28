@@ -35,6 +35,11 @@ export function QuizButton() {
       searchParams.append("type", analysisResult.preference === "Film" ? "movie" : "tv")
     }
 
+    // Aggiungi il servizio di streaming
+    if (analysisResult.streaming) {
+      searchParams.append("streaming", analysisResult.streaming)
+    }
+
     // Aggiungi la spiegazione di Groq
     if (analysisResult.reasoning) {
       searchParams.append("reasoning", analysisResult.reasoning)

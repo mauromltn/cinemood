@@ -24,6 +24,7 @@ export default function RecommendationsPage() {
   const mood = searchParams.get("mood")
   const activity = searchParams.get("activity")
   const preferredType = searchParams.get("type")
+  const streaming = searchParams.get("streaming")
 
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [isLoading, setIsLoading] = useState(false)
@@ -59,6 +60,10 @@ export default function RecommendationsPage() {
         params.append("type", "all")
       }
 
+      if (streaming) {
+        params.append("streaming", streaming)
+      }
+
       // Chiama l'API per ottenere consigli basati sui generi di Groq
       const response = await fetch(`/api/recommendations?${params.toString()}`)
 
@@ -77,7 +82,7 @@ export default function RecommendationsPage() {
     } finally {
       setIsLoading(false)
     }
-  }, [groqGenres, preferredType]) // Aggiungi le dipendenze qui
+  }, [groqGenres, preferredType, streaming]) // Aggiungi le dipendenze qui
 
   // Esegui la ricerca quando la pagina viene caricata
   useEffect(() => {
@@ -100,6 +105,7 @@ export default function RecommendationsPage() {
     if (mood) params.append("mood", mood)
     if (activity) params.append("activity", activity)
     if (preferredType) params.append("type", preferredType)
+    if (streaming) params.append("streaming", streaming)
     params.append("page", newPage.toString())
     router.push(`/recommendations?${params.toString()}`)
 
@@ -129,12 +135,14 @@ export default function RecommendationsPage() {
 
           <div className="flex items-center gap-3 mb-6">
             <Sparkles className="w-6 h-6 text-orange-700" />
-            <h1 className="text-xl sm:text-2xl font-bold">Contenuti selezionati per te</h1>
+            <h1 className="text-xl sm:text-2xl font-bold">
+              Contenuti selezionati per te{streaming && streaming !== "Qualsiasi" ? ` su ${streaming}` : " su tutte le piattaforme"}
+            </h1>
           </div>
 
           {groqReasoning && (
             <div className="bg-blue-900/20 border border-blue-700 rounded-2xl p-4 mb-6">
-              <p className="text-sm text-blue-200">
+              <p className="text-sm sm:text-base text-blue-200">
                 <strong>Analisi AI:</strong> {groqReasoning}
               </p>
             </div>

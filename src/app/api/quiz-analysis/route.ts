@@ -81,8 +81,8 @@ export async function POST(request: Request) {
    - "Così così" suggerisce un mix di emozioni
    - "Bene" indica un buon umore, cerca qualcosa di coinvolgente
    - "Fantastica" suggerisce energia alta
-   - "Piangere" corrisponde a un bisogno di introspezione
-   - "Ridere" corrisponde a un bisogno di leggerezza
+   - "Piangere" corrisponde a un sentimento di introspezione
+   - "Ridere" corrisponde a un bisogno di commedia e amicizia
    - "Emozionarti" richiama intensità e sentimenti forti
    - "Distrarti" suggerisce evasione e dinamismo
 

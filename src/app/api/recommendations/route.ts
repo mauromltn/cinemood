@@ -16,6 +16,9 @@ import { NextResponse } from "next/server"
  * 10767: Talk, 10768: Guerra e Politica, 37: Western
  * 
  * GENERI COMUNI (stesso ID per film e TV): 16, 35, 80, 99, 18, 10751, 9648, 37
+ * 
+ * PROVIDER STREAMING (per filtri):
+ * Netflix: 8, Prime Video: 119, Disney+: 337
  */
 
 export async function GET(request: Request) {
@@ -23,6 +26,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const genresParam = searchParams.get("genres")
     const type = searchParams.get("type") || "all"
+    const streaming = searchParams.get("streaming")
     const page = Number.parseInt(searchParams.get("page") || "1", 10)
 
     if (!genresParam) {
@@ -31,23 +35,37 @@ export async function GET(request: Request) {
 
     const genreIds = genresParam.split(",").map(Number)
 
+    // Mapping dei servizi streaming ai provider ID di TMDB
+    const streamingProviders: { [key: string]: number } = {
+      "Netflix": 8,
+      "Prime Video": 119,
+      "Disney+": 337
+    }
+
     // Costruisci le URL per le richieste all'API TMDB
     const apiKey = process.env.TMDB_API_KEY
     const baseUrl = "https://api.themoviedb.org/3"
+
+    // Aggiungi il filtro per provider se specificato
+    const streamingParam = streaming && streaming !== "Qualsiasi" && streamingProviders[streaming]
+      ? `&with_watch_providers=${streamingProviders[streaming]}&watch_region=IT`
+      : ""
+
+    console.log("Parametri ricerca:", { genres: genreIds, type, streaming, streamingParam })
 
     // Determina quali endpoint chiamare in base al tipo
     const requests: { url: string; type: "movie" | "tv" }[] = []
     
     if (type === "all" || type === "movie") {
       requests.push({
-        url: `${baseUrl}/discover/movie?api_key=${apiKey}&language=it-IT&sort_by=popularity.desc&with_genres=${genreIds.join(",")}&page=${page}`,
+        url: `${baseUrl}/discover/movie?api_key=${apiKey}&language=it-IT&sort_by=popularity.desc&with_genres=${genreIds.join(",")}${streamingParam}&page=${page}`,
         type: "movie"
       })
     }
     
     if (type === "all" || type === "tv") {
       requests.push({
-        url: `${baseUrl}/discover/tv?api_key=${apiKey}&language=it-IT&sort_by=popularity.desc&with_genres=${genreIds.join(",")}&page=${page}`,
+        url: `${baseUrl}/discover/tv?api_key=${apiKey}&language=it-IT&sort_by=popularity.desc&with_genres=${genreIds.join(",")}${streamingParam}&page=${page}`,
         type: "tv"
       })
     }
@@ -98,6 +116,8 @@ export async function GET(request: Request) {
       total_results: totalResults,
       total_pages: totalPages,
       page,
+      streaming_service: streaming || "all",
+      applied_streaming_filter: !!(streaming && streaming !== "Qualsiasi" && streamingProviders[streaming])
     })
   } catch (error) {
     console.error("Errore durante il recupero dei consigli:", error)
