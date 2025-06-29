@@ -31,13 +31,12 @@ export function QuizButton() {
       searchParams.append("activity", analysisResult.activity)
     }
 
-    if (analysisResult.preference && analysisResult.preference !== "Entrambi") {
-      searchParams.append("type", analysisResult.preference === "Film" ? "movie" : "tv")
-    }
-
-    // Aggiungi il servizio di streaming
     if (analysisResult.streaming) {
       searchParams.append("streaming", analysisResult.streaming)
+    }
+
+    if (analysisResult.preference && analysisResult.preference !== "Entrambi") {
+      searchParams.append("type", analysisResult.preference === "Film" ? "movie" : "tv")
     }
 
     // Aggiungi la spiegazione di Groq

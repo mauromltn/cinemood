@@ -6,8 +6,8 @@ import { X, Loader2, AlertTriangle, Sparkles } from "lucide-react"
 type QuizAnswer = {
   mood: string
   activity: string
-  preference: string
   streaming: string
+  preference: string
 }
 
 interface QuizModalProps {
@@ -20,18 +20,13 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
   const [answers, setAnswers] = useState<QuizAnswer>({
     mood: "",
     activity: "",
-    preference: "",
     streaming: "",
+    preference: "",
   })
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisError, setAnalysisError] = useState<string | null>(null)
 
   const questions = [
-    {
-      question: "Su quale piattaforma vuoi guardare?",
-      options: ["Qualsiasi", "Netflix", "Prime Video", "Disney+"],
-      key: "streaming" as const,
-    },
     {
       question: "Com'è andata la tua giornata?",
       options: ["Male", "Così così", "Bene", "Fantastica"],
@@ -41,6 +36,11 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
       question: "Hai voglia di…",
       options: ["Piangere", "Ridere", "Emozionarti", "Distrarti"],
       key: "activity" as const,
+    },
+    {
+      question: "Su quale piattaforma vuoi guardare?",
+      options: ["Qualsiasi", "Netflix", "Prime Video", "Disney+"],
+      key: "streaming" as const,
     },
     {
       question: "Preferisci film o serie?",
@@ -121,8 +121,8 @@ export function QuizModal({ onClose, onComplete }: QuizModalProps) {
       reasoning: "Raccomandazioni generiche",
       mood: answers.mood,
       activity: answers.activity,
-      preference: answers.preference,
       streaming: answers.streaming,
+      preference: answers.preference,
       note: "Analisi saltata",
     })
   }
