@@ -6,21 +6,23 @@ import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@cl
 
 export default function Header() {
    return (
-      <header className="w-full h-fit text-sm py-8 px-2 z-10 text-white">
+      <header className="w-full h-fit text-sm py-8 px-2 text-white">
          <nav className="relative w-full px-4 flex items-center justify-between">
-            <h1 className="font-semibold text-xl md:w-[288px]">Cinemood</h1>
+            <h1 className="font-semibold text-xl">Cinemood</h1>
 
             {/* Menu for large screens */}
-            <div className="hidden md:flex md:flex-row md:gap-8 py-4 px-6 bg-neutral-900 rounded-full">
-               {navLinks.map((link, i) => (
-                  <a
-                     key={i}
-                     href={link.path}
-                     className="text-base text-neutral-500 hover:text-white active:text-white font-bold duration-200"
-                  >
-                     {link.name}
-                  </a>
-               ))}
+            <div className='hidden md:flex absolute left-1/2 transform -translate-x-1/2'>
+               <div className="flex gap-8 py-4 px-6 bg-neutral-900 rounded-full">
+                  {navLinks.map((link, i) => (
+                     <a
+                        key={i}
+                        href={link.path}
+                        className="text-base text-neutral-500 hover:text-white active:text-white font-bold duration-200"
+                     >
+                        {link.name}
+                     </a>
+                  ))}
+               </div>
             </div>
 
             <div className="flex items-center gap-4">
